@@ -60,7 +60,6 @@ Your API will be running at: http://localhost:8080 !!
 
 
 
-
 ### Installation
 
 1.  **Clone the repository:**
