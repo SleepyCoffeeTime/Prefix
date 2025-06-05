@@ -58,6 +58,7 @@ npm start
 
 Your API will be running at: http://localhost:8080 !!
 
+If frontend host port 5173 is not working try 5174. Check the server.js to verify that it is the same port. 
 
 
 ### Installation
