@@ -1,0 +1,46 @@
+.edit-item-page {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  }
+  
+  .edit-item-page h1 {
+    color: #b30059;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .edit-form label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .edit-form input,
+  .edit-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+  }
+  
+  .edit-form button {
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #b30059;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .edit-form button:hover {
+    background-color: #99004c;
+  }
+  

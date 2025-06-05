@@ -1,31 +1,61 @@
-import { useState } from "react";
-import Login from "./components/Login";
-import SignUp from "./components/SignUp";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext, UserContextProvider } from "./components/UserContext";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import Feed from "./pages/Feed";
+import CreateItem from "./pages/CreateItem";
+import ItemDetail from "./pages/ItemDetail";
+import EditItem from "./pages/EditItem";
 
-function App() {
-  const [user, setUser] = useState(null);
-  const [showSignUp, setShowSignUp] = useState(false);
+function PrivateRoute({ children }) {
+  const { user } = useContext(UserContext);
 
   if (!user) {
-    return showSignUp ? (
-      <SignUp
-        onSignUp={setUser}
-        switchToLogin={() => setShowSignUp(false)}
-      />
-    ) : (
-      <Login
-        onLogin={setUser}
-        switchToSignUp={() => setShowSignUp(true)}
-      />
-    );
+   
+    return <Navigate to="/login" replace />;
   }
 
+ 
+  return children;
+}
+
+function App() {
   return (
-    <div>
-      <h1>Welcome, {user.email}!</h1>
-      <p>You are logged in.</p>
-    </div>
+    <UserContextProvider>
+      <Router>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/items/:id" element={<ItemDetail />} />
+
+          {/* Protected routes */}
+          <Route
+            path="/create"
+            element={
+              <PrivateRoute>
+                <CreateItem />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/items/:id/edit"
+            element={
+              <PrivateRoute>
+                <EditItem />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Redirect unknown routes to login */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </Router>
+    </UserContextProvider>
   );
 }
 
 export default App;
+

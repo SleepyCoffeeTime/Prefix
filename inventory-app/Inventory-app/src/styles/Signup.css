@@ -1,0 +1,104 @@
+/* SignUp.css */
+
+div {
+    max-width: 380px;
+    margin: 3rem auto;
+    padding: 2.5rem 2rem;
+    background: #fff0f5;
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(219, 112, 147, 0.3);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #6b3a5b;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 1.6rem;
+    color: #c94f7c;
+    text-shadow: 1px 1px 2px #f7c1d1;
+  }
+  
+  .error {
+    background-color: #ffd1d9;
+    color: #a83a4f;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    margin-bottom: 1.4rem;
+    font-weight: 600;
+    box-shadow: 0 3px 10px rgba(168, 58, 79, 0.3);
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    padding: 0.9rem 1.2rem;
+    border: 2.5px solid #f4c4d7;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    font-family: inherit;
+    color: #6b3a5b;
+    background-color: #fff0f5;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    border-color: #c94f7c;
+    box-shadow: 0 0 8px 2px #f7a9beaa;
+    outline: none;
+  }
+  
+  button[type="submit"] {
+    background: linear-gradient(135deg, #c94f7c, #f5a3b1);
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 0.85rem 0;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(201, 79, 124, 0.6);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background: linear-gradient(135deg, #b93c6d, #f0829e);
+    box-shadow: 0 8px 22px rgba(185, 60, 109, 0.8);
+  }
+  
+  button[type="submit"]:active {
+    transform: scale(0.97);
+    box-shadow: 0 4px 12px rgba(185, 60, 109, 0.9);
+  }
+  
+  p {
+    font-size: 1rem;
+    color: #7f556a;
+  }
+  
+  p button {
+    background: transparent;
+    border: none;
+    color: #c94f7c;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  p button:hover {
+    color: #b73f67;
+  }
+  

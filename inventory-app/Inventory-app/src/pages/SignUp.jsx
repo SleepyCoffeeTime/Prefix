@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../components/UserContext";
+import "../styles/SignUp.css";
 
-function SignUp({ onSignUp, switchToLogin }) {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: ""
-  });
+
+function SignUp() {
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { setUser, setToken } = useContext(UserContext); 
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -16,20 +18,11 @@ function SignUp({ onSignUp, switchToLogin }) {
     e.preventDefault();
     setError("");
 
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
     try {
-      const res = await fetch("http://localhost:3000/signup", {
+      const res = await fetch("http://localhost:8080/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password
-        })
+        body: JSON.stringify(formData),
       });
 
       if (!res.ok) {
@@ -37,18 +30,30 @@ function SignUp({ onSignUp, switchToLogin }) {
         setError(err.message || "Sign-up failed");
       } else {
         const data = await res.json();
-        onSignUp(data.user); 
+        
+        setUser(data.user);
+        setToken(data.token);
+        localStorage.setItem("token", data.token); 
+        navigate("/feed"); 
       }
-    } catch (err) {
+    } catch {
       setError("Network error");
     }
   };
 
   return (
     <div>
-      <h2>Sign Up</h2>
+      <h2>Create an Account</h2>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          required
+          value={formData.name}
+          onChange={handleChange}
+        />
         <input
           type="email"
           name="email"
@@ -65,19 +70,11 @@ function SignUp({ onSignUp, switchToLogin }) {
           value={formData.password}
           onChange={handleChange}
         />
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          required
-          value={formData.confirmPassword}
-          onChange={handleChange}
-        />
-        <button type="submit">Create Account</button>
+        <button type="submit">Sign Up</button>
       </form>
       <p>
         Already have an account?{" "}
-        <button onClick={switchToLogin}>Log In</button>
+        <button onClick={() => navigate("/login")}>Log In</button>
       </p>
     </div>
   );

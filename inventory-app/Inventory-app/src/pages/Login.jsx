@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../components/UserContext";
+import "../styles/Login.css";
 
-function Login({ onLogin, switchToSignUp }) {
+function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -13,11 +18,11 @@ function Login({ onLogin, switchToSignUp }) {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:3000/login", {
+      const res = await fetch("http://localhost:8080/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       if (!res.ok) {
@@ -25,11 +30,16 @@ function Login({ onLogin, switchToSignUp }) {
         setError(err.message || "Login failed");
       } else {
         const data = await res.json();
-        onLogin(data.user);
+        setUser(data.user);
+        navigate("/feed");
       }
     } catch (err) {
       setError("Network error");
     }
+  };
+
+  const handleBrowseClick = () => {
+    navigate("/feed");
   };
 
   return (
@@ -55,10 +65,27 @@ function Login({ onLogin, switchToSignUp }) {
         />
         <button type="submit">Log In</button>
       </form>
+
       <p>
         Don’t have an account?{" "}
-        <button onClick={switchToSignUp}>Sign Up</button>
+        <button onClick={() => navigate("/signup")}>Sign Up</button>
       </p>
+
+      <button
+        onClick={handleBrowseClick}
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          backgroundColor: "#db7093", 
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          fontWeight: "bold",
+        }}
+      >
+        Browse Inventory
+      </button>
     </div>
   );
 }
