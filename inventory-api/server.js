@@ -9,7 +9,7 @@ const knex = knexModule(knexConfig.development);
 
 
 app.use(cors({
-  origin: 'http://localhost:5174',
+  origin: 'http://localhost:5173', // change this :5174 if there is a network error. 
   credentials: true
 }));
 
